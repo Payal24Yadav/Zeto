@@ -36,25 +36,25 @@ flowchart TD
     DB[("MongoDB (Port 27017)")]
     Worker["Background Cron Worker"]
 
-    Client -->|JWT Auth & Idempotency-Key| API
-    API --> Auth["Auth & RBAC Middleware"]
-    API --> Catalog["Catalog & Product Service"]
+    Client -->|"JWT Auth and Idempotency-Key"| API
+    API --> Auth["Auth and RBAC Middleware"]
+    API --> Catalog["Catalog and Product Service"]
     API --> Cart["Cart Service (Persistent)"]
-    API --> Checkout["Checkout & Pricing Engine"]
+    API --> Checkout["Checkout and Pricing Engine"]
     API --> Concurrency["Atomic Inventory Service ($gte / $inc)"]
     API --> StateMachine["Order State Machine Guard"]
     API --> Payment["Mock Payment Provider"]
     API --> Webhook["Idempotent Webhook Processor"]
-    API --> Admin["Admin Dashboard & Analytics"]
+    API --> Admin["Admin Dashboard and Analytics"]
 
     Concurrency <--> DB
     Cart <--> DB
     StateMachine <--> DB
     Admin <--> DB
 
-    Worker -->|Cancel Expired Reservations (>15 min)| DB
-    Worker -->|Release Stock Back| DB
-    Worker -->|Scan Abandoned Carts (>2 hrs)| DB
+    Worker -->|"Cancel Expired Reservations (over 15 min)"| DB
+    Worker -->|"Release Stock Back"| DB
+    Worker -->|"Scan Abandoned Carts (over 2 hrs)"| DB
 ```
 
 ---
